@@ -6,7 +6,8 @@ class CaseVisitor(object):
     def __init__(self):
         self.functions = {}
 
-    def __call__(self, text, *key):
+    def __call__(self, *key_and_text):
+        key, text = key_and_text[:-1], key_and_text[-1]
         return self.functions[key](text)
 
     def case(self, *key):
@@ -36,20 +37,20 @@ class CaseConverter(CaseVisitor):
                         pass
         raise ValueError('cannot route %r to %r' % (src, dest))
 
-    def __call__(self, text, src, dest):
+    def __call__(self, src, dest, text):
         try:
-            return super(CaseConverter, self).__call__(text, src, dest)
+            return super(CaseConverter, self).__call__(src, dest, text)
         except KeyError:
             for src, dest in self.guess_route(src, dest):
-                text = self(text, src, dest)
+                text = self(src, dest, text)
             return text
 
 
 class CaseSplitter(CaseVisitor):
 
-    def __call__(self, text, case):
+    def __call__(self, case, text):
         try:
-            return super(CaseSplitter, self).__call__(text, case)
+            return super(CaseSplitter, self).__call__(case, text)
         except KeyError:
             return convert(text, case, snake_case).split('_')
 
@@ -73,12 +74,16 @@ class camelCase(CamelCase):
 
 class snake_case(Case): pass
 class SNAKE_CASE(snake_case): pass
+class hypen_case(snake_case): pass
+class HYPEN_CASE(snake_case): pass
 
 
 CamelCase = CamelCase()
 camelCase = camelCase()
 snake_case = snake_case()
 SNAKE_CASE = SNAKE_CASE()
+hypen_case = hypen_case()
+HYPEN_CASE = HYPEN_CASE()
 
 
 # synonyms of CamelCase
@@ -125,3 +130,18 @@ def convert(text):
 @convert.case(snake_case, CamelCase)
 def convert(text):
     return ' '.join(text.split('_')).title().replace(' ', '')
+
+
+@convert.case(snake_case, hypen_case)
+def convert(text):
+    return text.replace('_', '-')
+
+
+@convert.case(hypen_case, HYPEN_CASE)
+def convert(text):
+    return text.upper()
+
+
+@convert.case(HYPEN_CASE, hypen_case)
+def convert(text):
+    return text.lower()

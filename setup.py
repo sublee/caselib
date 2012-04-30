@@ -28,19 +28,22 @@ class CaselibTestCase(unittest.TestCase):
 
     def test_convert(self):
         from caselib import convert, CamelCase, camelCase, snake_case, \
-                            SNAKE_CASE
-        assert 'helloWorld'  == convert('HelloWorld',  CamelCase,  camelCase)
-        assert 'hello_world' == convert('HelloWorld',  CamelCase,  snake_case)
-        assert 'HELLO_WORLD' == convert('HelloWorld',  CamelCase,  SNAKE_CASE)
-        assert 'HelloWorld'  == convert('helloWorld',  camelCase,  CamelCase)
-        assert 'hello_world' == convert('helloWorld',  camelCase,  snake_case)
-        assert 'HELLO_WORLD' == convert('helloWorld',  camelCase,  SNAKE_CASE)
-        assert 'HelloWorld'  == convert('hello_world', snake_case, CamelCase)
-        assert 'helloWorld'  == convert('hello_world', snake_case, camelCase)
-        assert 'HELLO_WORLD' == convert('hello_world', snake_case, SNAKE_CASE)
-        assert 'HelloWorld'  == convert('HELLO_WORLD', SNAKE_CASE, CamelCase)
-        assert 'helloWorld'  == convert('HELLO_WORLD', SNAKE_CASE, camelCase)
-        assert 'hello_world' == convert('HELLO_WORLD', SNAKE_CASE, snake_case)
+                            SNAKE_CASE, hypen_case, HYPEN_CASE
+        assert 'helloWorld'  == convert(CamelCase, camelCase, 'HelloWorld')
+        assert 'hello_world' == convert(CamelCase, snake_case, 'HelloWorld')
+        assert 'HELLO_WORLD' == convert(CamelCase, SNAKE_CASE, 'HelloWorld')
+        assert 'HelloWorld'  == convert(camelCase, CamelCase, 'helloWorld')
+        assert 'hello_world' == convert(camelCase, snake_case, 'helloWorld')
+        assert 'HELLO_WORLD' == convert(camelCase, SNAKE_CASE, 'helloWorld')
+        assert 'HelloWorld'  == convert(snake_case, CamelCase, 'hello_world')
+        assert 'helloWorld'  == convert(snake_case, camelCase, 'hello_world')
+        assert 'HELLO_WORLD' == convert(snake_case, SNAKE_CASE, 'hello_world')
+        assert 'HelloWorld'  == convert(SNAKE_CASE, CamelCase, 'HELLO_WORLD')
+        assert 'helloWorld'  == convert(SNAKE_CASE, camelCase, 'HELLO_WORLD')
+        assert 'hello_world' == convert(SNAKE_CASE, snake_case, 'HELLO_WORLD')
+        assert 'hello-world' == convert(SNAKE_CASE, hypen_case, 'HELLO_WORLD')
+        assert 'hello-world' == convert(camelCase, hypen_case, 'helloWorld')
+        assert 'HELLO-WORLD' == convert(camelCase, HYPEN_CASE, 'helloWorld')
 
 
 def test_suite():
@@ -52,7 +55,7 @@ def test_suite():
 
 setup(
     name='caselib',
-    version='0.0.1',
+    version='0.1.0',
     license='BSD',
     author='Heungsub Lee',
     author_email='h@subl.ee',
