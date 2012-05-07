@@ -38,6 +38,9 @@ class CaseConverter(CaseVisitor):
         raise ValueError('cannot route %r to %r' % (src, dest))
 
     def __call__(self, src, dest, text):
+        # compatibility for version 0.0.1
+        if isinstance(src, basestring):
+            text, src, dest = src, dest, text
         try:
             return super(CaseConverter, self).__call__(src, dest, text)
         except KeyError:
@@ -49,6 +52,9 @@ class CaseConverter(CaseVisitor):
 class CaseSplitter(CaseVisitor):
 
     def __call__(self, case, text):
+        # compatibility for version 0.0.1
+        if isinstance(case, basestring):
+            text, case = case, text
         try:
             return super(CaseSplitter, self).__call__(case, text)
         except KeyError:
