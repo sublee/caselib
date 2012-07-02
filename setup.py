@@ -44,6 +44,9 @@ class CaselibTestCase(unittest.TestCase):
         assert 'hello-world' == convert(SNAKE_CASE, hypen_case, 'HELLO_WORLD')
         assert 'hello-world' == convert(camelCase, hypen_case, 'helloWorld')
         assert 'HELLO-WORLD' == convert(camelCase, HYPEN_CASE, 'helloWorld')
+        assert 'HelloWorld' == convert(hypen_case, CamelCase, 'hello-world')
+        assert 'helloWorld' == convert(hypen_case, camelCase, 'hello-world')
+        assert 'hello_world' == convert(hypen_case, snake_case, 'hello-world')
 
     def test_compatibility(self):
         from caselib import convert, CamelCase, camelCase, snake_case, \
@@ -74,7 +77,7 @@ def test_suite():
 
 setup(
     name='caselib',
-    version='0.1.1',
+    version='0.1.2',
     license='BSD',
     author='Heungsub Lee',
     author_email='h@subl.ee',
