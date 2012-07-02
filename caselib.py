@@ -40,6 +40,9 @@ class CaseConverter(CaseVisitor):
     def __call__(self, src, dest, text):
         # compatibility for version 0.0.1
         if isinstance(src, basestring):
+            from warnings import warn
+            warn('Placement text argument at the first is deprecated. Place ' \
+                 'at the last instead.', DeprecationWarning)
             text, src, dest = src, dest, text
         try:
             return super(CaseConverter, self).__call__(src, dest, text)
@@ -54,6 +57,9 @@ class CaseSplitter(CaseVisitor):
     def __call__(self, case, text):
         # compatibility for version 0.0.1
         if isinstance(case, basestring):
+            from warnings import warn
+            warn('Placement text argument at the first is deprecated. Place ' \
+                 'at the last instead.', DeprecationWarning)
             text, case = case, text
         try:
             return super(CaseSplitter, self).__call__(case, text)
@@ -151,3 +157,8 @@ def convert(text):
 @convert.case(HYPEN_CASE, hypen_case)
 def convert(text):
     return text.lower()
+
+
+@convert.case(hypen_case, snake_case)
+def convert(text):
+    return text.replace('-', '_')
