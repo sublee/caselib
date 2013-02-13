@@ -1,3 +1,13 @@
+# -*- coding: utf-8 -*-
+"""
+    caselib
+    ~~~~~~~
+
+    A string converter between different naming convention.
+
+    :copyright: (c) 2011-2013 by Heungsub Lee
+    :license: BSD, see LICENSE for more details.
+"""
 import re
 
 
@@ -41,7 +51,7 @@ class CaseConverter(CaseVisitor):
         # compatibility for version 0.0.1
         if isinstance(src, basestring):
             from warnings import warn
-            warn('Placement text argument at the first is deprecated. Place ' \
+            warn('Placement text argument at the first is deprecated. Place '
                  'at the last instead.', DeprecationWarning)
             text, src, dest = src, dest, text
         try:
@@ -58,7 +68,7 @@ class CaseSplitter(CaseVisitor):
         # compatibility for version 0.0.1
         if isinstance(case, basestring):
             from warnings import warn
-            warn('Placement text argument at the first is deprecated. Place ' \
+            warn('Placement text argument at the first is deprecated. Place '
                  'at the last instead.', DeprecationWarning)
             text, case = case, text
         try:
@@ -99,13 +109,16 @@ HYPEN_CASE = HYPEN_CASE()
 
 
 # synonyms of CamelCase
-BumpyCaps = BumpyCase = CamelCaps = CapitalizedWords = CapWords = \
-EmbededCaps = HumpBack = InterCaps = PascalCase = WikiWord = WikiCase = \
-UpperCamalCase = CamelCase
+for synonym in ['BumpyCaps', 'BumpyCase', 'CamelCaps', 'CapitalizedWords',
+                'CapWords', 'EmbededCaps', 'HumpBack', 'InterCaps',
+                'PascalCase', 'WikiWord', 'WikiCase', 'UpperCamelCase']:
+    locals()[synonym] = CamelCase
+
 
 # synonyms of camelCase
-camelBack = compoundNames = mixedCase = nerdCaps = headlessCamelCase = \
-lowerCamelCase = camelCase
+for synonym in ['camelBack', 'compoundNames', 'mixedCase', 'nerdCaps',
+                'headlessCamelCase', 'lowerCamelCase']:
+    locals()[synonym] = camelCase
 
 
 convert = CaseConverter()
