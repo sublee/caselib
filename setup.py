@@ -17,10 +17,8 @@ Links
   <http://github.com/sublee/caselib/zipball/master#egg=caselib-dev>`_
 
 """
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
+import re
+from setuptools import setup
 import unittest
 
 
@@ -80,7 +78,7 @@ setup(
     version='0.1.2',
     license='BSD',
     author='Heungsub Lee',
-    author_email='h@subl.ee',
+    author_email=re.sub('((sub).)(.*)', r'\2@\1.\3', 'sublee'),
     description='A string converter between different naming convention',
     long_description=__doc__,
     platforms='any',
