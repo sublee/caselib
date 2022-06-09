@@ -46,25 +46,6 @@ class CaselibTestCase(unittest.TestCase):
         assert 'helloWorld' == convert(hypen_case, camelCase, 'hello-world')
         assert 'hello_world' == convert(hypen_case, snake_case, 'hello-world')
 
-    def test_compatibility(self):
-        from caselib import convert, CamelCase, camelCase, snake_case, \
-                            SNAKE_CASE, hypen_case, HYPEN_CASE
-        assert 'helloWorld'  == convert('HelloWorld', CamelCase, camelCase)
-        assert 'hello_world' == convert('HelloWorld', CamelCase, snake_case)
-        assert 'HELLO_WORLD' == convert('HelloWorld', CamelCase, SNAKE_CASE)
-        assert 'HelloWorld'  == convert('helloWorld', camelCase, CamelCase)
-        assert 'hello_world' == convert('helloWorld', camelCase, snake_case)
-        assert 'HELLO_WORLD' == convert('helloWorld', camelCase, SNAKE_CASE)
-        assert 'HelloWorld'  == convert('hello_world', snake_case, CamelCase)
-        assert 'helloWorld'  == convert('hello_world', snake_case, camelCase)
-        assert 'HELLO_WORLD' == convert('hello_world', snake_case, SNAKE_CASE)
-        assert 'HelloWorld'  == convert('HELLO_WORLD', SNAKE_CASE, CamelCase)
-        assert 'helloWorld'  == convert('HELLO_WORLD', SNAKE_CASE, camelCase)
-        assert 'hello_world' == convert('HELLO_WORLD', SNAKE_CASE, snake_case)
-        assert 'hello-world' == convert('HELLO_WORLD', SNAKE_CASE, hypen_case)
-        assert 'hello-world' == convert('helloWorld', camelCase, hypen_case)
-        assert 'HELLO-WORLD' == convert('helloWorld', camelCase, HYPEN_CASE)
-
 
 def test_suite():
     loader = unittest.TestLoader()
@@ -75,7 +56,7 @@ def test_suite():
 
 setup(
     name='caselib',
-    version='0.1.2',
+    version='0.2.0',
     license='BSD',
     author='Heungsub Lee',
     author_email=re.sub('((sub).)(.*)', r'\2@\1.\3', 'sublee'),
